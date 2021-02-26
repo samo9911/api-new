@@ -20,7 +20,8 @@ class PostController extends Controller
      */
     public function index()
     {
-       //
+       return response()->json(
+           $this->post->paginate());
     }
 
     /**
@@ -44,7 +45,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return response()->json($post);
     }
 
     /**
@@ -54,9 +55,11 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequests $request, Post $post)
     {
-        //
+        $post->update($request->all());
+
+        return response()->json($post);
     }
 
     /**
@@ -67,6 +70,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return response()->json(null, 204);
     }
 }
